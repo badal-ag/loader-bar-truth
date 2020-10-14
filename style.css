@@ -1,0 +1,301 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap");
+
+:root {
+  --tz: 0;
+  --ry: 0;
+  --deg: 0deg;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  font-family: sans-serif;
+  background-image: linear-gradient(-45deg, #ed7451, #e63d7f, #22a7d4, #24d6aa);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.btn-truth {
+  border: 20px solid transparent;
+  margin-top: 20px;
+  border-top-width: 0;
+  border-bottom-width: 40px;
+  border-bottom-color: black;
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.container p {
+  text-align: center;
+  font-size: 30px;
+  transition: 0.3s;
+  line-height: 10px;
+  font-family: "Amatic SC";
+  opacity: 0;
+  user-select: none;
+}
+
+.container:hover p {
+  opacity: 1;
+}
+
+svg {
+  transform: scale(0.7);
+}
+
+svg .eye {
+  transform: scaleY(0);
+  transform-origin: 50% 65%;
+  transition: 0.3s ease-in;
+}
+
+svg g {
+  animation-name: floating;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+svg g:hover .eye {
+  transform: scaleY(1);
+}
+
+.bg-loader {
+  background: white;
+  border-radius: 10px;
+  transition-delay: 0.3s;
+  transition-duration: 0s;
+}
+
+.bg-loader.truth {
+  transition-delay: 0s;
+  background-color: unset;
+}
+
+.loader {
+  display: flex;
+  position: relative;
+  transition: 0.3s;
+  transform: rotateX(0deg) rotateY(0deg);
+  transform-style: preserve-3d;
+  border-radius: 10px;
+  border: 5px solid #ddd;
+}
+
+.loader.show {
+  transform: rotateX(-20deg) rotateY(-20deg);
+  transition: 0.3s;
+  border-color: transparent;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 4;
+}
+
+.loader::before {
+  left: 0;
+  border-radius: 5px 0 0 5px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05), transparent);
+}
+
+.loader::after {
+  right: 0;
+  border-radius: 0 5px 5px 0;
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.05), transparent);
+}
+
+.loader * {
+  background-color: #ddd;
+  height: 30px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.loader *:first-child {
+  border-radius: 5px 0 0 5px;
+  overflow: hidden;
+}
+
+.loader *:last-child {
+  border-radius: 0 5px 5px 0;
+  overflow: hidden;
+}
+
+.loader .depth {
+  position: absolute;
+  top: 0;
+  transform: rotateY(90deg);
+  transform-origin: 0 0;
+  z-index: 2;
+}
+
+.loader *:nth-child(4n-1) {
+  z-index: 1;
+}
+
+.loader.run-animation *::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #43ba43;
+  display: block;
+  width: 0;
+  height: 100%;
+  animation-name: loading;
+  animation-duration: var(--duration);
+  animation-delay: var(--delay);
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.loader *:nth-child(4n)::before {
+  left: unset;
+  right: 0;
+}
+
+.loader *::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0.15)
+  );
+  display: block;
+  width: 100%;
+  height: 50%;
+}
+
+.btn-reload {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  padding: 10px 15px;
+  background: black;
+  color: white;
+  font-family: "Amatic SC";
+  font-size: 24px;
+  border-radius: 5px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn-reload:hover {
+  transform: translateY(-5px);
+}
+
+.btn-reload::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 10px;
+  background: radial-gradient(rgb(0 0 0 / 0.3), transparent 70%);
+  position: absolute;
+  top: calc(100%);
+  left: 0;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.btn-reload:hover::before {
+  margin-top: 5px;
+  opacity: 1;
+}
+
+@keyframes floating {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes loading {
+  to {
+    width: 100%;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 60s !important;
+  }
+}
+
+
+.btn-git {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  padding: 10px 15px;
+  background: black;
+  color: white;
+  font-family: "Amatic SC";
+  font-size: 24px;
+  border-radius: 5px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn-git:hover {
+  transform: translateY(-5px);
+}
+
+.btn-git::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 10px;
+  background: radial-gradient(rgb(0 0 0 / 0.3), transparent 70%);
+  position: absolute;
+  top: calc(100%);
+  left: 0;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.btn-git:hover::before {
+  margin-top: 5px;
+  opacity: 1;
+}
